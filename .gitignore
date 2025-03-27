@@ -44,9 +44,6 @@ migrations/
 .env
 *.env
 
-# Alembic directory
-alembic/
-
 # Jupyter Notebook
 .ipynb_checkpoints/
 
