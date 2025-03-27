@@ -10,7 +10,9 @@ logger.setLevel(logging.INFO)
 
 class Settings:
     if os.getenv("WEBSITE_HOSTNAME"):
-        DATABASE_URL: str = os.getenv("AZURE_POSTGRESQL_CONNECTIONSTRING")
+        # Azure PostgreSQL Flexible server connection string but it's in incorrect format
+        # DATABASE_URL: str = os.getenv("AZURE_POSTGRESQL_CONNECTIONSTRING")
+        DATABASE_URL: str = f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}?sslmode={os.getenv('DB_SSLMODE')}"
         if not DATABASE_URL:
             logger.error("Missing environment variable: AZURE_POSTGRESQL_CONNECTIONSTRING")
     else:
