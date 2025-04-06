@@ -41,7 +41,7 @@ class Settings:
 
             # PostgreSQL
             self.DATABASE_URL = os.getenv("DATABASE_URL")
-
+            
             # MongoDB
             self.MONGODB_URL = os.getenv("MONGODB_URL")
             self.MONGODB_NAME = os.getenv("MONGODB_NAME")

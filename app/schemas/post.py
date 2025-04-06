@@ -9,7 +9,7 @@ class PostFileCreate(BaseModel):
         orm_mode = True
 
 class PostFileResponse(BaseModel):
-    file_id: int
+    id: int
     filename: str
     file_url: str # URL файлу
 
