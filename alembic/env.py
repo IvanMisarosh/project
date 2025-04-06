@@ -9,7 +9,7 @@ from alembic import context
 from app.db.session import Base
 from app.models import user, post  # Імпортуємо моделі
 # --
-from app.config import Settings
+from app.config import settings
 
 
 # from app.config import settings  
@@ -20,7 +20,7 @@ from app.config import Settings
 config = context.config
 
 # --
-config.set_main_option("sqlalchemy.url", Settings.DATABASE_URL)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
