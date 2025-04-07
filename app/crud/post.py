@@ -35,7 +35,7 @@ def update_post(db: Session, post_id: int, post_data: PostUpdate):
         if post_data.title:
             post.title = post_data.title
         if post_data.content:
-            post_data.content = post_data.content
+            post.content = post_data.content
         if post_data.is_archived is not None:
             post.is_archived = post_data.is_archived
         if post_data.archive_url:

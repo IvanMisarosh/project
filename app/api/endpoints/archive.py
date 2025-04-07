@@ -2,8 +2,11 @@ from azure.storage.queue import QueueClient, BinaryBase64EncodePolicy
 from fastapi import APIRouter, HTTPException
 from app.config import settings
 import json
+import os
+import logging
 
 router = APIRouter()
+logger = logging.getLogger("app")
 
 @router.post("/{post_id}")
 async def archive_post(post_id: int):
@@ -15,14 +18,20 @@ async def archive_post(post_id: int):
 
     # Get the queue connection string and queue name from settings
     queue_conn_str = settings.QUEUE_CONNECTION_STRING
+    logger.info(f"queue_conn_str: {queue_conn_str}")
+
+    queue_conn_str_getenv = os.getenv("QUEUE_CONNECTION_STRING")
+    logger.info(f"queue_conn_str_getenv: {queue_conn_str_getenv}")
+    
     queue_name = settings.QUEUE_NAME
 
-    if not queue_conn_str:
-        raise HTTPException(status_code=500, detail="Queue connection string is missing or malformed")
+    if not queue_conn_str_getenv:
+        raise HTTPException(status_code=500, detail="Queue connection string is missing or malformed." \
+        " queue_conn_str_getenv: {queue_conn_str_getenv}, queue_conn_str: {queue_conn_str}")
 
     # Create the QueueClient using the connection string and queue name
     try:
-        queue_client = QueueClient.from_connection_string(queue_conn_str, queue_name)
+        queue_client = QueueClient.from_connection_string(queue_conn_str_getenv, queue_name)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to connect to Azure Queue: {e}")
     
