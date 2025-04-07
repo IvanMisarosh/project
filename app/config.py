@@ -23,7 +23,7 @@ class Settings:
                 f"?sslmode={os.getenv('DB_SSLMODE', 'require')}"
             )
 
-            self.MONGODB_URL = os.getenv("MONGODB_URL", "")
+            self.MONGODB_URL = os.getenv("MONGODB_URL")
             self.MONGODB_NAME = os.getenv("MONGODB_NAME", "")
             self.MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "")
 
@@ -35,6 +35,9 @@ class Settings:
 
             if not self.AZURE_STORAGE_CONN_STR:
                 logger.warning("AZURE_STORAGE_CONNECTION_STRING not set!")
+
+            self.QUEUE_CONNECTION_STRING = os.getenv("QUEUE_CONNECTION_STRING")
+            self.QUEUE_NAME = os.getenv("QUEUE_NAME")
 
         else:
             logger.info("Running in local environment.")
@@ -51,5 +54,8 @@ class Settings:
             self.STORAGE_BACKEND = "local"
             self.UPLOAD_DIR = os.getenv("UPLOAD_DIR", "uploads")
             os.makedirs(self.UPLOAD_DIR, exist_ok=True) 
+
+            self.QUEUE_CONNECTION_STRING = os.getenv("QUEUE_CONNECTION_STRING")
+            self.QUEUE_NAME = os.getenv("QUEUE_NAME")
 
 settings = Settings()
