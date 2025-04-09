@@ -26,8 +26,8 @@ async def archive_post(post_id: int):
     queue_name = settings.QUEUE_NAME
 
     if not queue_conn_str_getenv:
-        raise HTTPException(status_code=500, detail="Queue connection string is missing or malformed." \
-        " queue_conn_str_getenv: {queue_conn_str_getenv}, queue_conn_str: {queue_conn_str}")
+        raise HTTPException(status_code=500, detail=f"Queue connection string is missing or malformed." \
+        f" queue_conn_str_getenv: {queue_conn_str_getenv}, queue_conn_str: {queue_conn_str}")
 
     # Create the QueueClient using the connection string and queue name
     try:
